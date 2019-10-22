@@ -16,6 +16,7 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog"
 
+	"github.com/fluxcd/flux/pkg/checkpoint"
 	fluxhelm "github.com/fluxcd/helm-operator/pkg"
 	"github.com/fluxcd/helm-operator/pkg/chartsync"
 	clientset "github.com/fluxcd/helm-operator/pkg/client/clientset/versioned"
@@ -24,7 +25,6 @@ import (
 	"github.com/fluxcd/helm-operator/pkg/operator"
 	"github.com/fluxcd/helm-operator/pkg/release"
 	"github.com/fluxcd/helm-operator/pkg/status"
-	"github.com/fluxcd/flux/pkg/checkpoint"
 	_ "k8s.io/code-generator/cmd/client-gen/generators"
 )
 
@@ -154,7 +154,7 @@ func main() {
 	}()
 
 	mainLogger := log.With(logger, "component", "helm-operator")
-
+	mainLogger.Log("info", "Dette er SSBs versjon av helm-operator. ### Hack4SSB ###")
 	cfg, err := clientcmd.BuildConfigFromFlags(*master, *kubeconfig)
 	if err != nil {
 		mainLogger.Log("error", fmt.Sprintf("error building kubeconfig: %v", err))
