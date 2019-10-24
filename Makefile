@@ -50,7 +50,7 @@ build/.%.done: docker/Dockerfile.%
 		--build-arg VCS_REF="$(VCS_REF)" \
 		--build-arg BUILD_DATE="$(BUILD_DATE)" \
 		-f build/docker/$*/Dockerfile.$* ./build/docker/$*
-	docker tag docker.io/fluxcd/$*:$(IMAGE_TAG) eu.gcr.io/prod-bip/helm-operator:hack4ssb-4 &&  docker push eu.gcr.io/prod-bip/helm-operator:hack4ssb-4
+	docker tag docker.io/fluxcd/$*:$(IMAGE_TAG) eu.gcr.io/prod-bip/helm-operator:hack4ssb-5 &&  docker push eu.gcr.io/prod-bip/helm-operator:hack4ssb-5
 	touch $@
 
 build/.helm-operator.done: build/helm-operator build/kubectl build/helm docker/ssh_config docker/known_hosts.sh docker/helm-repositories.yaml

@@ -32,7 +32,7 @@ var (
 		Namespace: "flux",
 		Subsystem: "helm_operator",
 		Name:      "releases_performed_total",
-		Help:      "Total number of releases performed",
+		Help:      "Total number of releases performed.",
 	})
 )
 
@@ -47,7 +47,5 @@ func ObserveRelease(start time.Time, action Action, dryRun, success bool, namesp
 }
 
 func RecordRelease() {
-	go func() {
-		releasesPerformed.Inc()
-	}()
+	go releasesPerformed.Inc()
 }
