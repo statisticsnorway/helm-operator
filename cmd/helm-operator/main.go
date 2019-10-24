@@ -154,7 +154,7 @@ func main() {
 	}()
 
 	mainLogger := log.With(logger, "component", "helm-operator")
-	mainLogger.Log("info", "Dette er SSBs versjon av helm-operator. ### Hack4SSB ###")
+	mainLogger.Log("info", "Dette er SSBs versjon av helm-operator. ### Hack4SSB ### (BLABLA2)")
 	cfg, err := clientcmd.BuildConfigFromFlags(*master, *kubeconfig)
 	if err != nil {
 		mainLogger.Log("error", fmt.Sprintf("error building kubeconfig: %v", err))

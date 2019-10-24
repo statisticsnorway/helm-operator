@@ -169,7 +169,7 @@ func (r *Release) Install(chartPath, releaseName string, hr helmfluxv1.HelmRelea
 			hr.ReleaseName(),
 		)
 	}(time.Now())
-
+	r.logger.Log("HACK4SSB: Installing!!")
 	if chartPath == "" {
 		return nil, "", fmt.Errorf("empty path to chart supplied for resource %q", hr.ResourceID().String())
 	}
@@ -228,8 +228,9 @@ func (r *Release) Install(chartPath, releaseName string, hr helmfluxv1.HelmRelea
 		}
 		if !opts.DryRun {
 			r.annotateResources(res.Release, hr)
+			RecordRelease()
 		}
-		RecordRelease()
+
 		return res.Release, checksum, err
 	case UpgradeAction:
 		res, err := r.HelmClient.UpdateRelease(
@@ -242,15 +243,14 @@ func (r *Release) Install(chartPath, releaseName string, hr helmfluxv1.HelmRelea
 			k8shelm.UpgradeForce(hr.Spec.ForceUpgrade),
 			k8shelm.UpgradeWait(hr.Spec.Rollback.Enable),
 		)
-
 		if err != nil {
 			r.logger.Log("error", fmt.Sprintf("Chart upgrade release failed: %s: %#v", hr.Spec.ReleaseName, err))
 			return nil, checksum, err
 		}
 		if !opts.DryRun {
 			r.annotateResources(res.Release, hr)
+			RecordRelease()
 		}
-		RecordRelease()
 		return res.Release, checksum, err
 	default:
 		err = fmt.Errorf("Valid install options: CREATE, UPDATE. Provided: %s", action)
